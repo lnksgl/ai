@@ -1,0 +1,15 @@
+import pytesseract
+import cv2
+import re
+
+img = cv2.imread('dataset/passport/1.jpg', 0)
+
+ret, threshold_img = cv2.threshold(img, 127, 255, 0)
+
+cv2.imwrite('threshold.jpg', threshold_img)
+
+data = pytesseract.image_to_string(threshold_img, lang="eng")
+
+print(re.search(r'\w{2}\d{7}', data))
+
+
